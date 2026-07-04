@@ -14,29 +14,35 @@ Follow the steps below to get a fully working local build.
 
 ---
 
-## 📦 Required External Asset Packs
+## 📦 Required External Asset Pack
 
-The following packs are used by the project but **not included** in this repository. Install each one via the **Epic Games Launcher** or **Fab**, then place its contents at the specified path.
+Only **one** external asset pack needs to be installed separately for this project to run correctly:
 
 | Asset Pack | Purpose | Install Path |
 |---|---|---|
-| **Medieval Dungeon** | Core environment art (walls, props, architecture) | `Content/MedievalDungeon/` |
-| **Weapons Pack** | First-person weapon meshes/materials (used for early prototyping references) | `Content/Weapons/` |
-| **Interface & Item Sounds** | UI and item interaction sound cues | `Content/Interface_And_Item_Sounds/` |
-| **Level Prototyping Pack** | Greybox prototyping meshes/materials used during early level blockout | `Content/LevelPrototyping/` |
-| **FPS Menu Music Vol. 1** | Background music used on the main menu | `Content/FPS_Menu_Music_Vol_1/` |
-| **Free Sounds Pack** | Miscellaneous ambient/SFX audio | `Content/Free_Sounds_Pack/` |
-| **Variant_Horror** *(Unreal sample content)* | Referenced during early prototyping | `Content/Variant_Horror/` |
-| **Variant_Shooter** *(Unreal sample content)* | Referenced during early prototyping | `Content/Variant_Shooter/` |
-
-> ℹ️ Exact source links depend on where each pack was originally sourced (Fab / Epic Marketplace). Search each pack name on [fab.com](https://www.fab.com) if you don't already own it. `Variant_Horror` and `Variant_Shooter` are Unreal's free sample content packs, available via the Epic Games Launcher's Learn/Samples tab.
->
-> ⚠️ These last four packs were used only during early prototyping and are not required for the core gameplay loop to function — you can typically skip them unless the editor throws missing-reference errors tied to those folders.
+| **Medieval Dungeon** | Core environment art (walls, props, architecture) used throughout the dungeon levels | `Content/MedievalDungeon/` |
 
 ### Steps
-1. Download each pack above via Epic Games Launcher or Fab
-2. In the Unreal Editor, use **Add to Project** (or manually copy the extracted folder) so contents land at the exact `Content/` path listed in the table
-3. Restart the Unreal Editor after all packs are in place
+1. Download **Medieval Dungeon** via the Epic Games Launcher or Fab
+2. In the Unreal Editor, use **Add to Project** (or manually copy the extracted folder) so contents land at `Content/MedievalDungeon/`
+3. Restart the Unreal Editor
+
+---
+
+## 📁 Other Asset Packs (Not Required)
+
+During development, several other Marketplace/sample packs were used for prototyping, reference, and testing:
+
+- Weapons Pack
+- Interface & Item Sounds
+- Level Prototyping Pack
+- FPS Menu Music Vol. 1
+- Free Sounds Pack
+- Variant_Horror / Variant_Shooter (Unreal sample content)
+
+**These do not need to be downloaded.** Any assets from these packs that actually ended up in the final game (specific sound cues, meshes, etc.) were copied directly into `Content/MyStuff/` during development, so they're already included in this repository. The original pack folders themselves were excluded from version control simply to avoid re-uploading large libraries of unused source files.
+
+If you don't plan to edit those specific migrated assets at the source level, you can safely ignore this section entirely.
 
 ---
 
@@ -72,12 +78,12 @@ git lfs pull
 
 | Error / Symptom | Cause | Solution |
 |---|---|---|
-| `Failed to load Outer` | A required external asset pack is missing | Install the relevant pack from the table above |
-| `Skipped package (BP_Candle)` / similar | Missing MedievalDungeon blueprint references | Install **Medieval Dungeon** pack |
-| `Skipped package (SM_Floor)` | Missing MedievalDungeon mesh | Install **Medieval Dungeon** pack |
-| Character falls through the floor | Floor mesh/collision missing (MedievalDungeon not installed) | Install **Medieval Dungeon** pack |
-| UI sounds don't play | Interface & Item Sounds pack missing | Install **Interface & Item Sounds** pack |
-| Blueprint compile errors on open | Broken references from a missing pack | Install the missing pack(s), then restart the editor |
+| `Failed to load Outer` | Medieval Dungeon pack is missing | Install **Medieval Dungeon** (see above) |
+| `Skipped package (BP_Candle)` / similar | Missing Medieval Dungeon blueprint references | Install **Medieval Dungeon** |
+| `Skipped package (SM_Floor)` | Missing Medieval Dungeon mesh | Install **Medieval Dungeon** |
+| Character falls through the floor | Floor mesh/collision missing (Medieval Dungeon not installed) | Install **Medieval Dungeon** |
+| Blueprint compile errors on open | Broken references from the missing pack | Install **Medieval Dungeon**, then restart the editor |
+| Missing-reference warnings tied to `Weapons/`, `LevelPrototyping/`, etc. | These folders were prototyping-only and intentionally excluded | Safe to ignore — see "Other Asset Packs" section above |
 
 ---
 
@@ -99,7 +105,7 @@ Then reopen the project in Unreal Editor. The first load after this will take lo
 
 1. Install Unreal Engine 5.6 + Visual Studio 2022
 2. `git lfs install` → clone this repo
-3. Install the 4 external asset packs listed above into their exact `Content/` paths
+3. Install **Medieval Dungeon** into `Content/MedievalDungeon/` (the only required external pack)
 4. Open `Dungeon.uproject`
 5. If prompted to rebuild modules, allow it
 6. If anything looks broken, run the cache reset steps above and reopen

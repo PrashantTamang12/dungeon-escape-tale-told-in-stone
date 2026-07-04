@@ -1,0 +1,26 @@
+# Unreal generated folders
+Binaries/
+Intermediate/
+DerivedDataCache/
+Saved/
+Build/
+
+# Visual Studio
+.vs/
+*.sln
+*.vcxproj*
+*.VC.db
+*.opendb
+
+# Third-party / marketplace assets (documented in README instead)
+Content/MedievalDungeon/
+Content/FPS_Menu_Music_Vol_1/
+Content/Free_Sounds_Pack/
+Content/LevelPrototyping/
+Content/Variant_Horror/
+Content/Variant_Shooter/
+Content/Weapons/
+
+# OS files
+.DS_Store
+Thumbs.db

@@ -23,7 +23,7 @@ Only **one** external asset pack needs to be installed separately for this proje
 | **Medieval Dungeon** | Core environment art (walls, props, architecture) used throughout the dungeon levels | `Content/MedievalDungeon/` |
 
 ### Steps
-1. Download **Medieval Dungeon** via the Epic Games Launcher or Fab
+1. Download **Medieval Dungeon** via the Epic Games Launcher or Fab. Link: https://fab.com/s/494a7622e1be
 2. In the Unreal Editor, use **Add to Project** (or manually copy the extracted folder) so contents land at `Content/MedievalDungeon/`
 3. Restart the Unreal Editor
 
@@ -46,15 +46,15 @@ If you don't plan to edit those specific migrated assets at the source level, yo
 
 ---
 
-## 📁 Frameworks Already Included in This Repo
+## 📁 Other Content Included in This Repo
 
-Some third-party systems were small enough (or integrated deeply enough into gameplay) to keep versioned directly in this repo — no separate download needed:
+A few additional folders are versioned in this repo alongside `MyStuff/`:
 
-- `Content/ContainerInventory/` — inventory framework, extended for item/lock interactions
-- `Content/DayNightCycle/` — day/night cycle system
-- `Content/menuGameSystemPro/` — main menu / pause / save-load UI framework
+- `Content/menuGameSystemPro/` — main menu / pause / save-load UI framework, **actively used** by the shipping game
+- `Content/ContainerInventory/` — inventory framework explored during development; **not used** in the final game, kept for reference only
+- `Content/DayNightCycle/` — day/night cycle system explored during development; **not used** in the final game, kept for reference only
 
-These will pull down automatically with `git clone` (via Git LFS) — no manual setup required.
+These will pull down automatically with `git clone` (via Git LFS) — no manual setup required. The unused folders don't affect gameplay and can be safely ignored or deleted from a local checkout if you want a leaner working copy.
 
 ---
 

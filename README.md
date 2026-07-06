@@ -37,18 +37,17 @@ This project uses a **hybrid C++ / Blueprint architecture**: C++ handles core ga
 - Integrated into the interaction system via the `"Door"` actor tag
 
 ### Quest / Objective System
-- Actor Component–based architecture: `EscapeQuestManagerComponent`, `EscapeQuestAudioComponent`, `EscapeQuestUIComponent`
+- Actor Component–based architecture: `EscapeQuestManagerComponent`, `EscapeQuestAudioComponent`, `EscapeQuestUIComponent`, `QuestManagerComponent`, `QuestAudioComponent`, `QuestUIComponent`.
 - `WBP_EscapeQuest` widget surfaces objective progress to the player
 - Final quest completion is triggered by the last door's movement, chained through a delay into the credits sequence
 
 ### End-Game & Credits Sequence
 - `WB_Credits` widget with an auto-close timer and keypress-skip support
 - `BPC_PlayerMovementStop` component freezes player control during the sequence
-- `WBP_EndGame` uses a widget-switcher architecture for clean state transitions
 - `UDungeonGameInstance` (C++) manages `LoadMainMenu()` / `LoadGameLevel()` flow
 
 ### Main Menu
-- Built on top of a Marketplace menu framework, with custom Blueprint wiring for game state transitions
+- Built on top of my own Main menu, named WBP_SimpleMenu, along with some Marketplace menu framework like settings widget blueprint, loading screen, and custom Blueprint wiring for game state transitions
 
 ### Character
 - Hierarchy: `BP_Player → BP_FirstPersonCharacter → DungeonCharacter (C++)`
@@ -63,10 +62,10 @@ Dungeon/
 ├── Content/
 │   ├── MyStuff/              ← All original gameplay code & content (start here)
 │   │   ├── Blueprints/
-    
 │   │   ├── Quests/
 │   │   ├── MainMenu/
 │   │   └── Maps/
+|   |   |__ ...
 │   ├── ContainerInventory/   ← Third-party inventory framework (see Installation.md)
 │   ├── InteractionSystem/    ← Third-party interaction framework base (extended by MyStuff)
 │   ├── DayNightCycle/        ← Third-party day/night system

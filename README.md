@@ -132,9 +132,20 @@ Several other Marketplace/sample packs (Weapons, Interface & Item Sounds, Level 
 
 ---
 
-## 📸 Screenshots & Demo
+## 📸 Screenshots
 
-*Coming soon.*
+*From an earlier development build — updated screenshots of the final version coming soon.*
+
+<!-- Example once images are added to Media/Screenshots/:
+![Dungeon corridor](Media/Screenshots/corridor.png)
+![Puzzle room](Media/Screenshots/puzzle-room.png)
+-->
+
+---
+
+## 🎮 Gameplay Demo
+
+*A full gameplay video will be published on [YouTube](#) after the current build is finalized. This section will be updated with the link once available.*
 
 ---
 

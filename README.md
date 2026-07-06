@@ -13,7 +13,7 @@
 
 This project was built as a **portfolio piece** to demonstrate professional-quality architecture, systems design, and technical breadth as a solo developer — for scholarship and mentorship review.
 
-> This repository intentionally excludes large third-party Marketplace asset packs. See [Installation.md](Installation.md) for what's required and how to set them up.
+> This repository has one external dependency (Medieval Dungeon). See [Installation.md](Installation.md) for setup — most other third-party content is already included.
 
 ---
 
@@ -37,7 +37,7 @@ This project uses a **hybrid C++ / Blueprint architecture**: C++ handles core ga
 - Integrated into the interaction system via the `"Door"` actor tag
 
 ### Quest / Objective System
-- Actor Component–based architecture: `EscapeQuestManagerComponent`, `EscapeQuestAudioComponent`, `EscapeQuestUIComponent`, `QuestManagerComponent`, `QuestAudioComponent`, `QuestUIComponent`.
+- Actor Component–based architecture: `EscapeQuestManagerComponent`, `EscapeQuestAudioComponent`, `EscapeQuestUIComponent`, plus earlier iterations `QuestManagerComponent`, `QuestAudioComponent`, `QuestUIComponent`
 - `WBP_EscapeQuest` widget surfaces objective progress to the player
 - Final quest completion is triggered by the last door's movement, chained through a delay into the credits sequence
 
@@ -47,7 +47,7 @@ This project uses a **hybrid C++ / Blueprint architecture**: C++ handles core ga
 - `UDungeonGameInstance` (C++) manages `LoadMainMenu()` / `LoadGameLevel()` flow
 
 ### Main Menu
-- Built on top of my own Main menu, named WBP_SimpleMenu, along with some Marketplace menu framework like settings widget blueprint, loading screen, and custom Blueprint wiring for game state transitions
+- Built on `WBP_SimpleMenu`, an original menu widget, alongside select Marketplace framework pieces (settings widget, loading screen), tied together with custom Blueprint wiring for game state transitions
 
 ### Character
 - Hierarchy: `BP_Player → BP_FirstPersonCharacter → DungeonCharacter (C++)`
@@ -60,33 +60,48 @@ This project uses a **hybrid C++ / Blueprint architecture**: C++ handles core ga
 ```
 Dungeon/
 ├── Content/
-│   ├── MyStuff/              ← All original gameplay code & content (start here)
+│   ├── MyStuff/                    ← All original gameplay code & content (start here)
 │   │   ├── Blueprints/
-│   │   ├── Quests/
+│   │   ├── BP-derivedClass/
+│   │   ├── Crosshair/
 │   │   ├── MainMenu/
-│   │   └── Maps/
-|   |   |__ ...
-│   ├── ContainerInventory/   ← Third-party inventory framework (see Installation.md)
-│   ├── InteractionSystem/    ← Third-party interaction framework base (extended by MyStuff)
-│   ├── DayNightCycle/        ← Third-party day/night system
-│   ├── menuGameSystemPro/    ← Third-party menu framework
+│   │   ├── Maps/
+│   │   ├── Quests/
+│   │   ├── Sounds/
+│   │   ├── UI_PAUSEMENU/
+│   │   └── USED_SOUNDS/
+│   ├── menuGameSystemPro/          ← Third-party main menu / pause / save-load UI framework (actively used)
+│   ├── InteractionSystem/          ← Third-party interaction framework base, extended by MyStuff
+│   ├── ContainerInventory/         ← Explored during development, not used in final game
+│   ├── DayNightCycle/              ← Explored during development, not used in final game
+│   ├── Characters/                 ← Shared character assets (Mannequins, etc.)
+│   ├── FirstPerson/                ← First-person template assets
+│   ├── Input/                      ← Enhanced Input actions & mapping contexts
+│   ├── Developers/                 ← Personal sandbox/testing content (not part of shipping game)
+│   ├── MedievalDungeon/            ← ⚠️ External asset pack — not included, see Installation.md
+│   ├── Weapons/                    ← ⚠️ Not included; used assets migrated into MyStuff, see Installation.md
+│   ├── Interface_And_Item_Sounds/  ← ⚠️ Not included; used assets migrated into MyStuff, see Installation.md
+│   ├── LevelPrototyping/           ← ⚠️ Not included; used assets migrated into MyStuff, see Installation.md
+│   ├── FPS_Menu_Music_Vol_1/       ← ⚠️ Not included; used assets migrated into MyStuff, see Installation.md
+│   ├── Free_Sounds_Pack/           ← ⚠️ Not included; used assets migrated into MyStuff, see Installation.md
+│   ├── Variant_Horror/             ← ⚠️ Unreal sample content, not included, see Installation.md
+│   ├── Variant_Shooter/            ← ⚠️ Unreal sample content, not included, see Installation.md
 │   └── ...
 ├── Source/
-│   └── Dungeon/              ← C++ gameplay classes (DungeonCharacter, DungeonDoor, etc.)
+│   └── Dungeon/                    ← C++ gameplay classes (DungeonCharacter, DungeonDoor, etc.)
 ├── Config/
 └── Dungeon.uproject
 ```
 
-> 📁 **`Content/MyStuff/`** contains all of the game-specific design, blueprints, and content built for this project. Other top-level `Content/` folders are third-party frameworks that were extended or integrated — see below.
+> 📁 **`Content/MyStuff/`** contains all of the game-specific design, blueprints, and content built for this project. Folders marked ⚠️ above are external asset packs excluded from this repo — see [Installation.md](Installation.md). `ContainerInventory/` and `DayNightCycle/` are included but unused legacy exploration, kept for reference only.
 
 ---
 
 ## 📦 External Dependencies
 
-To keep this repository lean and to respect Marketplace licensing terms, several large asset packs used by the project are **not included** in this repo. See [Installation.md](Installation.md) for the full list and setup instructions, including:
+This repository only has **one true external dependency**: the **Medieval Dungeon** environment art pack, which the dungeon levels are built on. See [Installation.md](Installation.md) for setup.
 
-- **Medieval Dungeon** (environment art pack)
-- Marketplace menu, inventory, and audio frameworks
+Several other Marketplace/sample packs (Weapons, Interface & Item Sounds, Level Prototyping, menu music, free sounds, Unreal's Variant_Horror/Variant_Shooter samples) were used during early prototyping. Any assets from those packs that actually made it into the final game were copied directly into `Content/MyStuff/`, so nothing further needs to be downloaded for those — the original pack folders were simply excluded from version control to keep the repo lean.
 
 ---
 
@@ -104,7 +119,7 @@ To keep this repository lean and to respect Marketplace licensing terms, several
 - **Timer-driven detection over Tick** for interaction systems — chosen deliberately for performance and reviewability
 - **Interface-driven interaction** (`IInteractableInterface`) so any actor type can become interactable without duplicating logic
 - **Component-based quest architecture** to keep quest logic decoupled from level-specific actors
-- **Explicit separation** between third-party framework content and original design work, to make authorship clear or reviewers
+- **Explicit separation** between third-party framework content and original design work, to make authorship clear for reviewers
 
 ---
 

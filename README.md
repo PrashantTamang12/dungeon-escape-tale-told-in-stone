@@ -1,93 +1,192 @@
 <div align="center">
 
-![Header](https://capsule-render.vercel.app/api?type=waving&color=0:0EA5E9,100:7DD3FC&height=200&section=header&text=Prashant%20Tamang&fontSize=42&fontColor=ffffff&animation=twinkling&fontAlignY=35&desc=Aspiring%20Game%20Developer%20%7C%20Undergraduate%20Applicant&descAlignY=55&descSize=18)
-
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&size=20&duration=3000&pause=1000&color=0EA5E9&center=true&vCenter=true&width=600&lines=Building+games+with+C%2B%2B+and+Unreal+Engine;High+School+Graduate+seeking+B.Sc.+Game+Development;Learning+by+shipping+small+playable+projects)](https://git.io/typing-svg)
-
-![Open to Work](https://img.shields.io/badge/Open%20to%20Work-Undergraduate%20Opportunities-0EA5E9?style=for-the-badge)
-
-![Profile Views](https://komarev.com/ghpvc/?username=PrashantTamang12&color=0EA5E9&style=flat-square&label=Profile+Views)
-![Followers](https://img.shields.io/github/followers/PrashantTamang12?label=Followers&style=flat-square&color=0EA5E9)
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0f172a,100:7dd3fc&height=180&section=header&text=Dungeon%20Escape&fontSize=44&fontColor=ffffff&animation=twinkling&fontAlignY=40&desc=A%20Tale%20Told%20in%20Stone&descAlignY=62&descSize=20" width="100%"/>
 
 </div>
 
+# 🏰 Dungeon Escape — A Tale Told in Stone
+
+![Unreal Engine](https://img.shields.io/badge/Engine-Unreal%20Engine%205.6-blue)
+![Status](https://img.shields.io/badge/Status-In%20Development-yellow)
+![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey)
+![Architecture](https://img.shields.io/badge/Architecture-C%2B%2B%20%2F%20Blueprint%20Hybrid-orange)
+
+<details open>
+<summary><strong>📑 Table of Contents</strong></summary>
+
+- [📌 Overview](#-overview)
+- [🧩 Core Systems](#-core-systems)
+- [🗂️ Project Structure](#️-project-structure)
+- [📦 External Dependencies](#-external-dependencies)
+- [🛠️ Tech Stack](#️-tech-stack)
+- [🎯 Design Principles Behind This Build](#-design-principles-behind-this-build)
+- [🚧 Roadmap](#-roadmap)
+- [📸 Screenshots](#-screenshots)
+- [🎮 Gameplay Demo](#-gameplay-demo)
+- [👤 Author](#-author)
+- [📄 License](#-license)
+
+</details>
+
 ---
 
-## 👤 Who I Am
+## 📌 Overview
 
-```ts
-const prashantTamang = {
-  title: "High School Graduate, National School of Sciences (Lainchour, Kathmandu)",
-  stack: ["C++", "C", "HTML", "CSS", "JavaScript", "PHP", "Unreal Engine"],
-  launchedProjects: ["Dungeon Escape: A Tale Told in Stone"],
-  certifications: [],
-  status: "Applying for Bachelor's in Game Development (IT sector)",
-  openTo: ["Undergraduate Scholarships Abroad (Australia)", "Game Dev Collaboration"]
-};
+**Dungeon Escape — A Tale Told in Stone** is a first-person, medieval dark-fantasy puzzle game built solo in **Unreal Engine 5.6**. Players explore a dungeon, collect items, place them into locks, and progress through a series of escalating puzzle rooms toward a final escape sequence and credits roll.
+
+This project was built as a **portfolio piece** to demonstrate professional-quality architecture, systems design, and technical breadth as a solo developer — for scholarship and mentorship review.
+
+> This repository has one external dependency (Medieval Dungeon). See [Installation.md](Installation.md) for setup — most other third-party content is already included.
+
+---
+
+## 🧩 Core Systems
+
+This project uses a **hybrid C++ / Blueprint architecture**: C++ handles core gameplay logic, interfaces, and systems, while Blueprint child classes handle visuals, animation, and audio. This split keeps performance-critical logic in native code while allowing rapid iteration on presentation.
+
+### Interaction System
+- `IInteractableInterface` — a shared interface for anything the player can interact with
+- Timer-driven sphere-sweep detection (`DoInteractionSweep()`) rather than per-tick raycasting, for better performance and cleaner profiling
+- Actor tagging (`"Collectable Item"`, `"Lock"`, `"Door"`) to drive interaction behavior
+- `BlueprintImplementableEvent` hooks (`OnInteractableFound`, `OnInteractableLost`) so Blueprint visuals/UI can react to C++-driven detection
+
+### Inventory
+- `TArray<FString> ItemList` tracks collected items
+- Items are validated against locks to gate progression
+
+### Door System
+- `ADungeonDoor` — a C++ base class handling hinge-rotation door mechanics
+- Blueprint variants (`BP_CellDoor_Rotate`, `BP_ChainDoor`) extend the base for specific visual/animation behavior
+- Integrated into the interaction system via the `"Door"` actor tag
+
+### Quest / Objective System
+- Actor Component–based architecture: `EscapeQuestManagerComponent`, `EscapeQuestAudioComponent`, `EscapeQuestUIComponent`, plus earlier iterations `QuestManagerComponent`, `QuestAudioComponent`, `QuestUIComponent`
+- `WBP_EscapeQuest` widget surfaces objective progress to the player
+- Final quest completion is triggered by the last door's movement, chained through a delay into the credits sequence
+
+### End-Game & Credits Sequence
+- `WB_Credits` widget with an auto-close timer and keypress-skip support
+- `BPC_PlayerMovementStop` component freezes player control during the sequence
+- `UDungeonGameInstance` (C++) manages `LoadMainMenu()` / `LoadGameLevel()` flow
+
+### Main Menu
+- Built on `WBP_SimpleMenu`, an original menu widget, alongside select Marketplace framework pieces (settings widget, loading screen), tied together with custom Blueprint wiring for game state transitions
+
+### Character
+- Hierarchy: `BP_Player → BP_FirstPersonCharacter → DungeonCharacter (C++)`
+- First-person camera attachment handled at the C++ constructor level for stability
+
+---
+
+## 🗂️ Project Structure
+
+```
+Dungeon/
+├── Content/
+│   ├── MyStuff/                    ← All original gameplay code & content (start here)
+│   │   ├── Blueprints/
+│   │   ├── BP-derivedClass/
+│   │   ├── Crosshair/
+│   │   ├── MainMenu/
+│   │   ├── Maps/
+│   │   ├── Quests/
+│   │   ├── Sounds/
+│   │   ├── UI_PAUSEMENU/
+│   │   └── USED_SOUNDS/
+│   ├── menuGameSystemPro/          ← Third-party main menu / pause / save-load UI framework (actively used)
+│   ├── InteractionSystem/          ← Third-party interaction framework base, extended by MyStuff
+│   ├── ContainerInventory/         ← Explored during development, not used in final game
+│   ├── DayNightCycle/              ← Explored during development, not used in final game
+│   ├── Characters/                 ← Shared character assets (Mannequins, etc.)
+│   ├── FirstPerson/                ← First-person template assets
+│   ├── Input/                      ← Enhanced Input actions & mapping contexts
+│   ├── Developers/                 ← Personal sandbox/testing content (not part of shipping game)
+│   ├── MedievalDungeon/            ← ⚠️ External asset pack — not included, see Installation.md
+│   ├── Weapons/                    ← ⚠️ Not included; used assets migrated into MyStuff, see Installation.md
+│   ├── Interface_And_Item_Sounds/  ← ⚠️ Not included; used assets migrated into MyStuff, see Installation.md
+│   ├── LevelPrototyping/           ← ⚠️ Not included; used assets migrated into MyStuff, see Installation.md
+│   ├── FPS_Menu_Music_Vol_1/       ← ⚠️ Not included; used assets migrated into MyStuff, see Installation.md
+│   ├── Free_Sounds_Pack/           ← ⚠️ Not included; used assets migrated into MyStuff, see Installation.md
+│   ├── Variant_Horror/             ← ⚠️ Unreal sample content, not included, see Installation.md
+│   ├── Variant_Shooter/            ← ⚠️ Unreal sample content, not included, see Installation.md
+│   └── ...
+├── Source/
+│   └── Dungeon/                    ← C++ gameplay classes (DungeonCharacter, DungeonDoor, etc.)
+├── Config/
+└── Dungeon.uproject
 ```
 
+> 📁 **`Content/MyStuff/`** contains all of the game-specific design, blueprints, and content built for this project. Folders marked ⚠️ above are external asset packs excluded from this repo — see [Installation.md](Installation.md). `ContainerInventory/` and `DayNightCycle/` are included but unused legacy exploration, kept for reference only.
+
 ---
 
-## 🎮 Featured Project
+## 📦 External Dependencies
 
-### Dungeon Escape: A Tale Told in Stone
+This repository only has **one true external dependency**: the **Medieval Dungeon** environment art pack, which the dungeon levels are built on. See [Installation.md](Installation.md) for setup.
 
-[![Repo Card](https://github-readme-stats.vercel.app/api/pin/?username=PrashantTamang12&repo=dungeon-escape-tale-told-in-stone&theme=nord&border_color=0EA5E9&title_color=0EA5E9)](https://github.com/PrashantTamang12/dungeon-escape-tale-told-in-stone)
-
-| Layer         | Technology     |
-|---------------|----------------|
-| Engine        | Unreal Engine  |
-| Core Logic    | C++            |
-| Scripting/UI  | C, HTML, CSS   |
-
-🔗 [Code](https://github.com/PrashantTamang12/dungeon-escape-tale-told-in-stone)
+Several other Marketplace/sample packs (Weapons, Interface & Item Sounds, Level Prototyping, menu music, free sounds, Unreal's Variant_Horror/Variant_Shooter samples) were used during early prototyping. Any assets from those packs that actually made it into the final game were copied directly into `Content/MyStuff/`, so nothing further needs to be downloaded for those — the original pack folders were simply excluded from version control to keep the repo lean.
 
 ---
 
 ## 🛠️ Tech Stack
 
-**Languages**
-
-![Skills](https://skillicons.dev/icons?i=cpp,c,js,php)
-
-**Frontend**
-
-![Skills](https://skillicons.dev/icons?i=html,css)
-
-**Engine / Tools**
-
-![Skills](https://skillicons.dev/icons?i=unrealengine,git,github)
+- **Engine:** Unreal Engine 5.6
+- **Languages:** C++, Blueprint Visual Scripting
+- **IDE:** Visual Studio 2022
+- **Version Control:** Git + Git LFS
 
 ---
 
-## 📊 GitHub Stats
+## 🎯 Design Principles Behind This Build
+
+- **Timer-driven detection over Tick** for interaction systems — chosen deliberately for performance and reviewability
+- **Interface-driven interaction** (`IInteractableInterface`) so any actor type can become interactable without duplicating logic
+- **Component-based quest architecture** to keep quest logic decoupled from level-specific actors
+- **Explicit separation** between third-party framework content and original design work, to make authorship clear for reviewers
+
+---
+
+## 🚧 Roadmap
+
+- [ ] Final main menu wiring pass (GameInstance hookup verification)
+- [ ] Additional puzzle rooms
+- [ ] Full playtest pass and polish
+- [ ] Accompanying devlog / portfolio site
+
+---
+
+## 📸 Screenshots
+
+*From an earlier development build — updated screenshots of the final version coming soon.*
+
+<!-- Example once images are added to Media/Screenshots/:
+![Dungeon corridor](Media/Screenshots/corridor.png)
+![Puzzle room](Media/Screenshots/puzzle-room.png)
+-->
+
+---
+
+## 🎮 Gameplay Demo
+
+*A full gameplay video will be published on [YouTube](#) after the current build is finalized. This section will be updated with the link once available.*
+
+---
+
+## 👤 Author
+
+**Prashant Tamang**
+Solo Developer — Unreal Engine 5
+
+---
+
+## 📄 License
+
+This project is shared for portfolio and educational review purposes. Third-party assets referenced in [Installation.md](Installation.md) remain the property of their respective creators and are licensed separately.
 
 <div align="center">
 
-![Stats](https://github-readme-stats.vercel.app/api?username=PrashantTamang12&show_icons=true&theme=nord&border_color=0EA5E9&icon_color=0EA5E9&title_color=0EA5E9&text_color=c9d1d9)
-![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=PrashantTamang12&layout=compact&theme=nord&border_color=0EA5E9&title_color=0EA5E9&text_color=c9d1d9)
+<br/>
 
-![Streak](https://streak-stats.demolab.com?user=PrashantTamang12&theme=nord&border=0EA5E9&ring=0EA5E9&fire=0EA5E9)
-
-</div>
-
-### 🏆 Trophies
-
-![Trophies](https://github-profile-trophy.vercel.app/?username=PrashantTamang12&theme=nord&no-frame=true&no-bg=true&row=1&column=6)
-
-### 📈 Contribution Activity
-
-![Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=PrashantTamang12&theme=react-dark&color=0EA5E9&line=0EA5E9&point=ffffff)
-
----
-
-## 📫 Connect
-
-[![Email](https://img.shields.io/badge/Email-prashanttamang2024%40gmail.com-0EA5E9?style=for-the-badge&logo=gmail&logoColor=white)](mailto:prashanttamang2024@gmail.com)
-[![GitHub](https://img.shields.io/badge/GitHub-PrashantTamang12-0EA5E9?style=for-the-badge&logo=github&logoColor=white)](https://github.com/PrashantTamang12)
-
----
-
-![Footer](https://capsule-render.vercel.app/api?type=waving&color=0:0EA5E9,100:7DD3FC&height=120&section=footer&animation=twinkling)
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:7dd3fc,100:0f172a&height=100&section=footer" width="100%"/>
 
 </div>

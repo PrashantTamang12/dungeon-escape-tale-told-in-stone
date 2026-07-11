@@ -1,9 +1,32 @@
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0f172a,100:7dd3fc&height=180&section=header&text=Dungeon%20Escape&fontSize=44&fontColor=ffffff&animation=twinkling&fontAlignY=40&desc=A%20Tale%20Told%20in%20Stone&descAlignY=62&descSize=20" width="100%"/>
+
+</div>
+
 # 🏰 Dungeon Escape — A Tale Told in Stone
 
 ![Unreal Engine](https://img.shields.io/badge/Engine-Unreal%20Engine%205.6-blue)
 ![Status](https://img.shields.io/badge/Status-In%20Development-yellow)
 ![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey)
 ![Architecture](https://img.shields.io/badge/Architecture-C%2B%2B%20%2F%20Blueprint%20Hybrid-orange)
+
+<details open>
+<summary><strong>📑 Table of Contents</strong></summary>
+
+- [📌 Overview](#-overview)
+- [🧩 Core Systems](#-core-systems)
+- [🗂️ Project Structure](#️-project-structure)
+- [📦 External Dependencies](#-external-dependencies)
+- [🛠️ Tech Stack](#️-tech-stack)
+- [🎯 Design Principles Behind This Build](#-design-principles-behind-this-build)
+- [🚧 Roadmap](#-roadmap)
+- [📸 Screenshots](#-screenshots)
+- [🎮 Gameplay Demo](#-gameplay-demo)
+- [👤 Author](#-author)
+- [📄 License](#-license)
+
+</details>
 
 ---
 
@@ -159,3 +182,11 @@ Solo Developer — Unreal Engine 5
 ## 📄 License
 
 This project is shared for portfolio and educational review purposes. Third-party assets referenced in [Installation.md](Installation.md) remain the property of their respective creators and are licensed separately.
+
+<div align="center">
+
+<br/>
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:7dd3fc,100:0f172a&height=100&section=footer" width="100%"/>
+
+</div>

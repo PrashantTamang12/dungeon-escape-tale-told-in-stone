@@ -1,0 +1,50 @@
+<svg width="480" height="220" viewBox="0 0 480 220" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#ff2ee6"/><stop offset="100%" stop-color="#4facfe"/>
+  </linearGradient>
+  <clipPath id="cardclip"><rect x="0" y="0" width="480" height="220" rx="16"/></clipPath>
+  
+</defs>
+<g clip-path="url(#cardclip)">
+  <rect x="0" y="0" width="480" height="220" fill="#160726"/>
+  <rect x="0" y="0" width="480" height="220" fill="none" stroke="#8a2be2" stroke-width="2"/>
+  <text x="20" y="20" font-family="'Fira Code',monospace" font-size="13" fill="#c9b6e8" letter-spacing="1">TOP LANGUAGES</text>
+    <text x="20" y="47" font-family="'Fira Code',monospace" font-size="12.5" fill="#f5eaff">C++</text>
+    <text x="440" y="47" text-anchor="end" font-family="'Fira Code',monospace" font-size="12" fill="#c9b6e8">42%</text>
+    <rect x="20" y="54" width="410" height="8" rx="4" fill="#2a1440"/>
+    <rect x="20" y="54" width="0" height="8" rx="4" fill="#f34b7d">
+      <animate attributeName="width" from="0" to="172.2" dur="1s" begin="0.00s" fill="freeze"/>
+    </rect>
+    <text x="20" y="77" font-family="'Fira Code',monospace" font-size="12.5" fill="#f5eaff">Blueprints (UE5)</text>
+    <text x="440" y="77" text-anchor="end" font-family="'Fira Code',monospace" font-size="12" fill="#c9b6e8">22%</text>
+    <rect x="20" y="84" width="410" height="8" rx="4" fill="#2a1440"/>
+    <rect x="20" y="84" width="0" height="8" rx="4" fill="#3572A5">
+      <animate attributeName="width" from="0" to="90.2" dur="1s" begin="0.15s" fill="freeze"/>
+    </rect>
+    <text x="20" y="107" font-family="'Fira Code',monospace" font-size="12.5" fill="#f5eaff">JavaScript</text>
+    <text x="440" y="107" text-anchor="end" font-family="'Fira Code',monospace" font-size="12" fill="#c9b6e8">14%</text>
+    <rect x="20" y="114" width="410" height="8" rx="4" fill="#2a1440"/>
+    <rect x="20" y="114" width="0" height="8" rx="4" fill="#f1e05a">
+      <animate attributeName="width" from="0" to="57.4" dur="1s" begin="0.30s" fill="freeze"/>
+    </rect>
+    <text x="20" y="137" font-family="'Fira Code',monospace" font-size="12.5" fill="#f5eaff">PHP</text>
+    <text x="440" y="137" text-anchor="end" font-family="'Fira Code',monospace" font-size="12" fill="#c9b6e8">10%</text>
+    <rect x="20" y="144" width="410" height="8" rx="4" fill="#2a1440"/>
+    <rect x="20" y="144" width="0" height="8" rx="4" fill="#4F5D95">
+      <animate attributeName="width" from="0" to="41.0" dur="1s" begin="0.45s" fill="freeze"/>
+    </rect>
+    <text x="20" y="167" font-family="'Fira Code',monospace" font-size="12.5" fill="#f5eaff">HTML/CSS</text>
+    <text x="440" y="167" text-anchor="end" font-family="'Fira Code',monospace" font-size="12" fill="#c9b6e8">8%</text>
+    <rect x="20" y="174" width="410" height="8" rx="4" fill="#2a1440"/>
+    <rect x="20" y="174" width="0" height="8" rx="4" fill="#e34c26">
+      <animate attributeName="width" from="0" to="32.8" dur="1s" begin="0.60s" fill="freeze"/>
+    </rect>
+    <text x="20" y="197" font-family="'Fira Code',monospace" font-size="12.5" fill="#f5eaff">Other</text>
+    <text x="440" y="197" text-anchor="end" font-family="'Fira Code',monospace" font-size="12" fill="#c9b6e8">4%</text>
+    <rect x="20" y="204" width="410" height="8" rx="4" fill="#2a1440"/>
+    <rect x="20" y="204" width="0" height="8" rx="4" fill="#8a2be2">
+      <animate attributeName="width" from="0" to="16.4" dur="1s" begin="0.75s" fill="freeze"/>
+    </rect>
+</g>
+</svg>

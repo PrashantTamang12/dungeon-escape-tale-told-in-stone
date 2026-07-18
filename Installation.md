@@ -115,3 +115,11 @@ Then reopen the project in Unreal Editor. The first load after this will take lo
 4. Open `Dungeon.uproject`
 5. If prompted to rebuild modules, allow it
 6. If anything looks broken, run the cache reset steps above and reopen
+
+<div align="center">
+
+<br/>
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:7dd3fc,100:0f172a&height=100&section=footer" width="100%"/>
+
+</div>
